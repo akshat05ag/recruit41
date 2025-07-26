@@ -10,6 +10,7 @@ const router = express.Router();
 const sessionHistories = {};
 
 router.post('/', async (req, res) => {
+  console.log("Received body:", req.body);
   try {
     const { email, message, conversation_id } = req.body;
 
