@@ -9,6 +9,27 @@ const router = express.Router();
 // Temporary in-memory session history (per session ID)
 const sessionHistories = {};
 
+router.get('/conversations/:email', async (req, res) => {
+  const { email } = req.params;
+  const user = await ChatUser.findOne({ email });
+
+  if (!user) return res.status(404).json({ error: 'User not found' });
+
+  const sessions = await ConversationSession.find({ user: user._id })
+    .sort({ createdAt: -1 })
+    .select('_id createdAt')
+    .lean();
+
+  res.json(sessions);
+});
+
+router.get('/conversation/:id', async (req, res) => {
+  const session = await ConversationSession.findById(req.params.id).populate('messages');
+  if (!session) return res.status(404).json({ error: 'Session not found' });
+  res.json(session.messages);
+});
+
+
 router.post('/', async (req, res) => {
   console.log("Received body:", req.body);
   try {

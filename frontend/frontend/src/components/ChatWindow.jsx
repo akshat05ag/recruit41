@@ -1,13 +1,15 @@
+import Sidebar from './Sidebar';
 import MessageList from './MessageList';
 import UserInput from './UserInput';
 
-const ChatWindow = () => {
-  return (
-    <div className="max-w-xl mx-auto p-4 border rounded shadow">
+const ChatWindow = () => (
+  <div className="flex h-screen">
+    <Sidebar />
+    <div className="flex-1 flex flex-col">
       <MessageList />
       <UserInput />
     </div>
-  );
-};
+  </div>
+);
 
 export default ChatWindow;
