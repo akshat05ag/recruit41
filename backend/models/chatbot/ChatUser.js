@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const chatUserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
@@ -8,4 +8,4 @@ const chatUserSchema = new mongoose.Schema({
 
 const ChatUser = mongoose.model('ChatUser', chatUserSchema);
 
-export default ChatUser;
+module.exports = ChatUser;
